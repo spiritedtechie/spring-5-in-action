@@ -1,4 +1,4 @@
-package com.blah.userservice;
+package com.blah.userservice.futures;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

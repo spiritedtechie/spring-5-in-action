@@ -1,1 +1,1 @@
-curl -X POST -d '{"firstnament-Type:application/json" http://localhost:8080/users -v
+curl -d '{"firstname":"Bob", "lastname":"Jones"}' -H "Content-Type:application/json" http://localhost:8080/futures/users -v

@@ -1,5 +1,6 @@
-package com.blah.userservice;
+package com.blah.userservice.futures;
 
+import com.blah.userservice.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,6 +9,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
+@RequestMapping(path = "/futures")
 public class UserController {
 
     private UserService userService;

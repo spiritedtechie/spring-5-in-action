@@ -1,5 +1,6 @@
-package com.blah.userservice;
+package com.blah.userservice.futures;
 
+import com.blah.userservice.User;
 import org.springframework.data.repository.Repository;
 import org.springframework.scheduling.annotation.Async;
 
