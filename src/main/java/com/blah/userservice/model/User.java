@@ -1,4 +1,4 @@
-package com.blah.userservice;
+package com.blah.userservice.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

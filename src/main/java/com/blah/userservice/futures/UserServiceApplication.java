@@ -1,9 +1,11 @@
-package com.blah.userservice;
+package com.blah.userservice.futures;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.blah.userservice.futures")
+@EntityScan(basePackages = {"com.blah.userservice"})
 public class UserServiceApplication {
 
     public static void main(String[] args) {
