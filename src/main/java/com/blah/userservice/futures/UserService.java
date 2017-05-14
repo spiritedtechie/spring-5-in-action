@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 @Component
 public class UserService {
@@ -26,11 +27,11 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public CompletableFuture<List<User>> findAllUsers() {
+    public CompletableFuture<Stream<User>> findAllUsers() {
         return userRepository.findAll();
     }
 
-    public CompletableFuture<List<User>> findUserByFirstname(String firstname) {
+    public CompletableFuture<Stream<User>> findUserByFirstname(String firstname) {
         return userRepository.findByFirstname(firstname);
     }
 

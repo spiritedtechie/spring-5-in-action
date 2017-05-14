@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(path = "/futures")
@@ -36,14 +37,14 @@ public class UserController {
     @RequestMapping(
             path = "/users",
             method = RequestMethod.GET)
-    public CompletableFuture<List<User>> getAllUsers() {
+    public CompletableFuture<Stream<User>> getAllUsers() {
         return this.userService.findAllUsers();
     }
 
     @RequestMapping(
             path = "/users/name",
             method = RequestMethod.GET)
-    public CompletableFuture<List<User>> getUsersByFirstname(@RequestParam(name = "firstname") String firstname) {
+    public CompletableFuture<Stream<User>> getUsersByFirstname(@RequestParam(name = "firstname") String firstname) {
         return this.userService.findUserByFirstname(firstname);
     }
 }
