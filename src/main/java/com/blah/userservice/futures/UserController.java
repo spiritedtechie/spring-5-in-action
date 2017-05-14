@@ -1,6 +1,6 @@
 package com.blah.userservice.futures;
 
-import com.blah.userservice.model.User;
+import com.blah.userservice.data.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
