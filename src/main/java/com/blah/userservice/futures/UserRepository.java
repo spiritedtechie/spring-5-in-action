@@ -4,7 +4,6 @@ import com.blah.userservice.data.User;
 import org.springframework.data.repository.Repository;
 import org.springframework.scheduling.annotation.Async;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
