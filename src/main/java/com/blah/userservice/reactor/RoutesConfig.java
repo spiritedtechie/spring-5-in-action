@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -46,6 +47,12 @@ public class RoutesConfig {
                 return ServerResponse.ok().body(fromPublisher(userSupplier.apply(userId), User.class));
             };
 
+    static Function<Function<Optional<String>, Flux<User>>, HandlerFunction> handleFetchOneByName =
+            userSupplier -> request -> {
+                Optional<String> firstname = request.queryParam("firstname");
+                return ServerResponse.ok().body(fromPublisher(userSupplier.apply(firstname), User.class));
+            };
+
     static Function<UserRepository, HandlerFunction> getAllUsersUsingRepository = userRepository ->
             handleFetchAll.apply(() ->
                     Flux.defer(() -> Flux.fromStream(userRepository.findAll()))
@@ -55,6 +62,12 @@ public class RoutesConfig {
             handleFetchOne.apply(userId ->
                     Mono.defer(() -> Mono.justOrEmpty(userRepository.findById(userId)))
                             .subscribeOn(Schedulers.elastic()));
+
+    static Function<UserRepository, HandlerFunction> getAUserByNameUsingRepository = userRepository ->
+            handleFetchOneByName.apply(firstname ->
+                    Mono.justOrEmpty(firstname)
+                            .flatMapMany(fn ->
+                                    Flux.defer(() -> Flux.fromIterable(userRepository.findByFirstname(fn))).subscribeOn(Schedulers.elastic())));
 
     static Function<UserRepository, HandlerFunction> saveUserUsingRepository = userRepository ->
             handleSave.apply(user ->
@@ -66,6 +79,7 @@ public class RoutesConfig {
         RouterFunction routes =
                 route(POST("/users"), saveUserUsingRepository.apply(userRepository))
                         .and(route(GET("/users"), getAllUsersUsingRepository.apply(userRepository)))
+                        .and(route(GET("/users/name"), getAUserByNameUsingRepository.apply(userRepository)))
                         .and(route(GET("/users/{userid}"), getAUserUsingRepository.apply(userRepository)));
 
         return nest(path("/reactor"), routes);
